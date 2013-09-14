@@ -1,0 +1,18 @@
+{
+  "routes":
+  [
+    { "path": "/", "callback": "application#index" },
+    { "path": "/login", "method":"post", "callback": "application#login" },
+    { "path": "/home", "callback": "application#home" },
+    { "path": "/error", "callback": "application#error"},
+    { "path": "/logout", "callback": "application#logout"}   
+  ],
+  "filters":
+  [
+  	 { "path": "/home", "callback": "session_filter#validateSession" }
+  ],
+  "websockets":
+  [
+  	{ "event": "", "callback": ""}
+  ]
+}

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+	<html lang="en">
+	<head>
+		<meta charset="utf-8">
+			
+		<title>Main Cases</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<!-- Bootstrap -->
+		<link href="assets/css/bootstrap.css" rel="stylesheet">
+		<link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
+
+		<style type="text/css">
+			img {
+				height: 80px;
+				width: 80px
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<!-- Navbar -->
+		<div class="navbar navbar-fixed-top">
+		  <div class="navbar-inner">
+		    <div class="container">
+		      <a class="brand" href="#">Welcome, <%= name %></a>
+		      <div class="navbar-content">
+		        <ul class="nav  pull-right">
+		          <li>
+		            <a href="/logout">Log out</a> 
+		          </li>
+		        </ul>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+
+		<div class ="container" style="padding-top:50px">
+
+				<div class="page-header">
+                	<h3> Advance Practice </h3>
+            	</div>
+
+			<div class="tabbable tabs-left">
+			  <ul class="nav nav-tabs">
+			    	<li class="active"><a href="#Adults" data-toggle="tab">Adults</a></li>
+                	<li><a href="#Geriatrics" data-toggle="tab">Geriatrics</a></li>
+                	<li><a href="#Pediatrics" data-toggle="tab">Pediatrics</a></li>
+                	<li><a href="#Women" data-toggle="tab">Women</a></li>
+			  </ul>
+
+			  <div class="tab-content">
+			  		<div class="tab-pane active" id="Adults">
+			  			<% for(var i=0; i<cases.length; i++) { %>
+				  			<div class="row">
+					  			<div class="span1">
+		                  			<img src="images/soap/Adults_Case.png" class="img-rounded">
+		                  		</div>
+		               			<div class="span7" style="padding-top:20px">
+		           					<h5> <strong><%=cases[i].testcase %></strong> </h5>
+		           				</div>
+		              		</div>
+		                  	<hr size="3" noshade>
+    					<% } %>
+                	</div>
+                	<div class="tab-pane" id="Geriatrics">
+                 		<p>Howdy, I'm in Section 2.</p>
+                	</div>
+                	<div class="tab-pane" id="Pediatrics">
+                		<p>What up girl, this is Section 3.</p>
+                	</div>
+                	<div class="tab-pane" id="Women">
+                		Women
+                	</div>
+			  </div>
+			</div>
+		</div>
+
+		<!--Javascript-->
+        <script src="assets/js/jquery.js"></script>
+		<script src="assets/js/bootstrap.js"></script>
+    		
+	</body>
+</html>

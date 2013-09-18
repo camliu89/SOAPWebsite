@@ -2,14 +2,21 @@
   "routes":
   [
     { "path": "/", "callback": "application#index" },
-    { "path": "/login", "method":"post", "callback": "application#login" },
-    { "path": "/home", "callback": "application#home" },
     { "path": "/error", "callback": "application#error"},
-    { "path": "/logout", "callback": "application#logout"}   
+    { "path": "/login", "method":"post", "callback": "access#login" },
+    { "path": "/logout", "callback": "access#logout"},
+    { "path": "/adults", "callback": "data#adults" },
+    { "path": "/pediatrics", "callback": "data#pediatrics" },
+    { "path": "/geriatrics", "callback": "data#geriatrics" },  
+    { "path": "/women", "callback": "data#women" },
+    { "path": "/women/:testcase", "callback": "data#getData" }       
   ],
   "filters":
   [
-  	 { "path": "/home", "callback": "session_filter#validateSession" }
+  	 { "path": "/adults", "callback": "session_filter#validateSession" },
+     { "path": "/pediatrics", "callback": "session_filter#validateSession" },
+     { "path": "/women", "callback": "session_filter#validateSession" },
+     { "path": "/geriatrics", "callback": "session_filter#validateSession" }
   ],
   "websockets":
   [

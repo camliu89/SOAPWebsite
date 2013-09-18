@@ -38,48 +38,37 @@
 
 		<div class ="container" style="padding-top:50px">
 
-				<div class="page-header">
-                	<h3> Advance Practice </h3>
-            	</div>
-
-			<div class="tabbable tabs-left">
-			  <ul class="nav nav-tabs">
-			    	<li class="active"><a href="#Adults" data-toggle="tab">Adults</a></li>
-                	<li><a href="#Geriatrics" data-toggle="tab">Geriatrics</a></li>
-                	<li><a href="#Pediatrics" data-toggle="tab">Pediatrics</a></li>
-                	<li><a href="#Women" data-toggle="tab">Women</a></li>
-			  </ul>
-
-			  <div class="tab-content">
-			  		<div class="tab-pane active" id="Adults">
-			  			<% for(var i=0; i<cases.length; i++) { %>
-				  			<div class="row">
-					  			<div class="span1">
-		                  			<img src="images/soap/Adults_Case.png" class="img-rounded">
-		                  		</div>
-		               			<div class="span7" style="padding-top:20px">
-		           					<h5> <strong><%=cases[i].testcase %></strong> </h5>
-		           				</div>
-		              		</div>
-		                  	<hr size="3" noshade>
-    					<% } %>
-                	</div>
-                	<div class="tab-pane" id="Geriatrics">
-                 		<p>Howdy, I'm in Section 2.</p>
-                	</div>
-                	<div class="tab-pane" id="Pediatrics">
-                		<p>What up girl, this is Section 3.</p>
-                	</div>
-                	<div class="tab-pane" id="Women">
-                		Women
-                	</div>
-			  </div>
-			</div>
+   			<ul class="breadcrumb text-center">
+			  <li><button class="btn btn-link" type="button" onclick="location.href='/adults'" id="adults">Adults</button> <span class="divider">|</span></li>
+			  <li><button class="btn btn-link" type="button" onclick="location.href='/geriatrics'" id="geriatrics">Geriatrics</button> <span class="divider">|</span></li>
+			  <li><button class="btn btn-link" type="button" onclick="location.href='/pediatrics'" id="pediatrics">Pediatrics</button> <span class="divider">|</span></li>
+			  <li><button class="btn btn-link" type="button" onclick="location.href='/women'" id="women">Women</button></li>
+			</ul>
 		</div>
+
+
+		<div class="container">
+			<% for(var i=0; i<cases.length; i++) { %>
+	  			<div class="row">
+		  			<div class="span1">
+              			<img src="images/soap/Adults_Case.png" class="img-rounded">
+              		</div>
+           			<div class="span7" style="padding-top:20px">
+       					<h5> <strong><%=cases[i].testcase %></strong> </h5>
+       				</div>
+          		</div>
+              	<hr size="3" noshade>
+			<% } %>
+		</div>
+
 
 		<!--Javascript-->
         <script src="assets/js/jquery.js"></script>
 		<script src="assets/js/bootstrap.js"></script>
-    		
+
+		<script>
+			$('#<%=id%>').attr('disabled', true);
+		</script>
+
 	</body>
 </html>

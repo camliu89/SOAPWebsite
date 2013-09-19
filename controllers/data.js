@@ -119,3 +119,7 @@ function getData (req, res) {
         }
     });
 }
+
+function subobj (req, res) {
+    res.render('subjectiveObjective');
+}

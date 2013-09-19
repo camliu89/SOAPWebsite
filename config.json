@@ -9,6 +9,7 @@
     { "path": "/pediatrics", "callback": "data#pediatrics" },
     { "path": "/geriatrics", "callback": "data#geriatrics" },  
     { "path": "/women", "callback": "data#women" },
+    { "path": "/subobj", "callback": "data#subobj" },
     { "path": "/women/:testcase", "callback": "data#getData" }       
   ],
   "filters":

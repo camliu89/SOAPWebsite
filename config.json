@@ -9,15 +9,29 @@
     { "path": "/pediatrics", "callback": "data#pediatrics" },
     { "path": "/geriatrics", "callback": "data#geriatrics" },  
     { "path": "/women", "callback": "data#women" },
-    { "path": "/subobj", "callback": "data#subobj" },
-    { "path": "/women/:testcase", "callback": "data#getData" }       
+    { "path": "/adults/:id/subobj", "callback": "data#getData" },
+    { "path": "/adults/:id/discussion", "callback": "data#discussion" },
+    { "path": "/geriatrics/:id/subobj", "callback": "data#getData" },
+    { "path": "/geriatrics/:id/discussion", "callback": "data#discussion" },
+    { "path": "/pediatrics/:id/subobj", "callback": "data#getData" },
+    { "path": "/pediatrics/:id/discussion", "callback": "data#discussion" },
+    { "path": "/women/:id/subobj", "callback": "data#getData" },
+    { "path": "/women/:id/discussion", "callback": "data#discussion" }   
   ],
   "filters":
   [
-  	 { "path": "/adults", "callback": "session_filter#validateSession" },
-     { "path": "/pediatrics", "callback": "session_filter#validateSession" },
-     { "path": "/women", "callback": "session_filter#validateSession" },
-     { "path": "/geriatrics", "callback": "session_filter#validateSession" }
+  	{ "path": "/adults", "callback": "session_filter#validateSession" },
+    { "path": "/pediatrics", "callback": "session_filter#validateSession" },
+    { "path": "/women", "callback": "session_filter#validateSession" },
+    { "path": "/geriatrics", "callback": "session_filter#validateSession" },
+    { "path": "/adults/:id/subobj", "callback": "session_filter#validateSession" },
+    { "path": "/adults/:id/discussion", "callback": "session_filter#validateSession" },
+    { "path": "/geriatrics/:id/subobj", "callback": "session_filter#validateSession" },
+    { "path": "/geriatrics/:id/discussion", "callback": "session_filter#validateSession" },
+    { "path": "/pediatrics/:id/subobj", "callback": "session_filter#validateSession" },
+    { "path": "/pediatrics/:id/discussion", "callback": "session_filter#validateSession" },
+    { "path": "/women/:id/subobj", "callback": "session_filter#validateSession" },
+    { "path": "/women/:id/discussion", "callback": "session_filter#validateSession" }  
   ],
   "websockets":
   [

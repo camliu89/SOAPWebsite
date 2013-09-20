@@ -13,42 +13,28 @@
 
 		<div id="modal" class="modal hide fade">  
 			<div class="modal-header">  
-				<a href="<%=back%>" class="close">×</a>  
-				<h3>Subjective & Objective</h3>
-				<p class="muted">Case: <%=title%></p>  
+				<a href="<%=back%>" class="close">×</a> 
+				<h3>Discussion</h3>
+				<p class="muted">Case: <%=title%></p>   
 			</div>  
 			<div class="modal-body">  
 				<div class="accordion" id="accordion1">    
                     <div class="accordion-group">
                         <div class="accordion-heading">
                             <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" href="#Subjective">
-                                Subjective
+                                Discussion
                             </a>
                         </div>
                         <div id="Subjective" class="accordion-body collapse">
                             <div class="accordion-inner">
-                                <p><%=subjective%></p>
+                                <p><%=discussion%></p>
                             </div>
                         </div>
                     </div>
                 </div> <!-- /accordion -->
-
-                                 
-			 	<div class="accordion-group">
-                    <div class="accordion-heading">
-                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" href="#Objective">
-                            Objective
-                        </a>
-                    </div>
-                    <div id="Objective" class="accordion-body collapse">
-                        <div class="accordion-inner">
-                            <p><%=objective%></p>
-                        </div>
-                    </div>
-                </div>   
 			</div>
 			<div class="modal-footer">  
-				<a href="<%=id%>/discussion" class="btn btn-success">Next</a>
+				<a href="<%=back%>" class="btn btn-success">Done</a>   
 			</div>  
 		</div>
 

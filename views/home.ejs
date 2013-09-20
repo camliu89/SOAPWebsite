@@ -7,8 +7,8 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 		<!-- Bootstrap -->
-		<link href="assets/css/bootstrap.css" rel="stylesheet">
-		<link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
+		<link href="/assets/css/bootstrap.css" rel="stylesheet">
+		<link href="/assets/css/bootstrap-responsive.css" rel="stylesheet">
 
 		<style type="text/css">
 			img {
@@ -51,10 +51,10 @@
 			<% for(var i=0; i<cases.length; i++) { %>
 	  			<div class="row">
 		  			<div class="span1">
-              			<img src="images/soap/Adults_Case.png" class="img-rounded">
+              			<img src="/images/soap/Adults_Case.png" class="img-rounded">
               		</div>
            			<div class="span7" style="padding-top:20px">
-       					<h5> <a href="/subobj"><strong><%=cases[i].testcase %></strong> </a></h5>
+       					<h5> <a href="/<%=id%>/<%=cases[i].id%>/subobj"><strong><%=cases[i].testcase %></strong> </a></h5>
        				</div>
           		</div>
               	<hr size="3" noshade>
@@ -63,8 +63,8 @@
 
 
 		<!--Javascript-->
-        <script src="assets/js/jquery.js"></script>
-		<script src="assets/js/bootstrap.js"></script>
+        <script src="/assets/js/jquery.js"></script>
+		<script src="/assets/js/bootstrap.js"></script>
 
 		<script>
 			$('#<%=id%>').attr('disabled', true);

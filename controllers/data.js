@@ -13,6 +13,7 @@ function adults (req, res) {
     }, 
     function (data) {
         if (data.success) {
+            req.session.caseRoot = "/adults";
             res.render('home', {
                 id: 'adults',
                 name: req.session.firstName,
@@ -38,6 +39,7 @@ function pediatrics (req, res) {
     }, 
     function (data) {
         if (data.success) {
+            req.session.caseRoot = "/pediatrics";
             res.render('home', {
                 id: 'pediatrics',
                 name: req.session.firstName,
@@ -62,6 +64,7 @@ function geriatrics (req, res) {
     }, 
     function (data) {
         if (data.success) {
+            req.session.caseRoot = "/geriatrics";
             res.render('home', {
                 id: 'geriatrics',
                 name: req.session.firstName,
@@ -87,6 +90,7 @@ function women (req, res) {
     }, 
     function (data) {
         if (data.success) {
+            req.session.caseRoot = "/women";
             res.render('home', {
                 id: 'women',
                 name: req.session.firstName,
@@ -104,22 +108,31 @@ function getData (req, res) {
     ACS.Objects.query({
         classname: 'soap',
         where: {
-            rootCase: "Women",
-            testcase: req.params.testcase
+            id: req.params.id
         },
         order: 'created_at'
     
     }, 
     function (data) {
         if (data.success) {
-            console.log(data);
-            
+            req.session.holdData = data.soap;
+            res.render('subjectiveObjective', {
+                title: req.session.holdData[0].testcase,
+                subjective: req.session.holdData[0].Subjective,
+                objective: req.session.holdData[0].Objective,
+                id: req.session.caseRoot + "/" + req.params.id,
+                back: req.session.caseRoot
+            });
         } else {
             console.log(data);
         }
     });
 }
 
-function subobj (req, res) {
-    res.render('subjectiveObjective');
+function discussion (req, res) {
+    res.render('discussion', {
+        back: req.session.caseRoot,
+        title: req.session.holdData[0].testcase,
+        discussion: req.session.holdData[0].Discussion[0].Summary
+    });
 }

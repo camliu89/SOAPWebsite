@@ -129,6 +129,24 @@ function getData (req, res) {
     });
 }
 
+function assestment (req, res) {
+    res.render('assestment', {
+        id: req.session.caseRoot + "/" + req.params.id,
+        back: req.session.caseRoot,
+        title: req.session.holdData[0].testcase,
+        assestments: req.session.holdData[0].Assestment
+    });
+}
+
+function plan (req, res) {
+    res.render('plan', {
+        id: req.session.caseRoot + "/" + req.params.id,
+        back: req.session.caseRoot,
+        title: req.session.holdData[0].testcase,
+        plans: req.session.holdData[0].Plan
+    });
+}
+
 function discussion (req, res) {
     res.render('discussion', {
         back: req.session.caseRoot,

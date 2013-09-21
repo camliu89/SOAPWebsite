@@ -11,12 +11,20 @@
     { "path": "/women", "callback": "data#women" },
     { "path": "/adults/:id/subobj", "callback": "data#getData" },
     { "path": "/adults/:id/discussion", "callback": "data#discussion" },
+    { "path": "/adults/:id/assestment", "callback": "data#assestment" },
+    { "path": "/adults/:id/plan", "callback": "data#plan" }, 
     { "path": "/geriatrics/:id/subobj", "callback": "data#getData" },
     { "path": "/geriatrics/:id/discussion", "callback": "data#discussion" },
+    { "path": "/geriatrics/:id/assestment", "callback": "data#assestment" },
+    { "path": "/geriatrics/:id/plan", "callback": "data#plan" }, 
     { "path": "/pediatrics/:id/subobj", "callback": "data#getData" },
     { "path": "/pediatrics/:id/discussion", "callback": "data#discussion" },
+    { "path": "/pediatrics/:id/assestment", "callback": "data#assestment" },
+    { "path": "/pediatrics/:id/plan", "callback": "data#plan" }, 
     { "path": "/women/:id/subobj", "callback": "data#getData" },
-    { "path": "/women/:id/discussion", "callback": "data#discussion" }   
+    { "path": "/women/:id/discussion", "callback": "data#discussion" }, 
+    { "path": "/women/:id/assestment", "callback": "data#assestment" },
+    { "path": "/women/:id/plan", "callback": "data#plan" }     
   ],
   "filters":
   [
@@ -26,12 +34,20 @@
     { "path": "/geriatrics", "callback": "session_filter#validateSession" },
     { "path": "/adults/:id/subobj", "callback": "session_filter#validateSession" },
     { "path": "/adults/:id/discussion", "callback": "session_filter#validateSession" },
+    { "path": "/adults/:id/assestment", "callback": "session_filter#validateSession" },
+    { "path": "/adults/:id/plan", "callback": "session_filter#validateSession" }, 
     { "path": "/geriatrics/:id/subobj", "callback": "session_filter#validateSession" },
     { "path": "/geriatrics/:id/discussion", "callback": "session_filter#validateSession" },
+    { "path": "/geriatrics/:id/assestment", "callback": "session_filter#validateSession" },
+    { "path": "/geriatrics/:id/plan", "callback": "session_filter#validateSession" }, 
     { "path": "/pediatrics/:id/subobj", "callback": "session_filter#validateSession" },
     { "path": "/pediatrics/:id/discussion", "callback": "session_filter#validateSession" },
+    { "path": "/pediatrics/:id/assestment", "callback": "session_filter#validateSession" },
+    { "path": "/pediatrics/:id/plan", "callback": "session_filter#validateSession" },
     { "path": "/women/:id/subobj", "callback": "session_filter#validateSession" },
-    { "path": "/women/:id/discussion", "callback": "session_filter#validateSession" }  
+    { "path": "/women/:id/discussion", "callback": "session_filter#validateSession" },
+    { "path": "/women/:id/assestment", "callback": "session_filter#validateSession" },
+    { "path": "/women/:id/plan", "callback": "session_filter#validateSession" }  
   ],
   "websockets":
   [

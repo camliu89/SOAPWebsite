@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+	<html>
+	<head>
+			<meta charset="utf-8">
+			<meta http-equiv="X-UA-Compatible" content="IE=edge">
+			<title>Plan</title>
+			<!-- Bootstrap -->
+			<link href="/assets/css/bootstrap.css" rel="stylesheet">
+			<link href="/assets/css/bootstrap-responsive.css" rel="stylesheet">
+	</head>
+	<body>
+		<div id="modal" class="modal hide fade">  
+			<div class="modal-header">  
+				<a href="<%=back%>" class="close">×</a> 
+				<h3>Plan</h3>
+				<p class="muted">Case: <%=title%> </p>   
+			</div>  
+			<div class="modal-body">  
+				<div class="accordion" id="accordion1">   
+					<% for(var i=0; i<plans.length; i++) { %>
+	                    <div class="accordion-group">
+	                        <div class="accordion-heading">
+	                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" href="#<%=plans[i].planTitle%>">
+	                                <%=plans[i].planTitle%>
+	                            </a>
+	                        </div>
+	                        <div id="<%=plans[i].planTitle%>" class="accordion-body collapse">
+	                            <div class="accordion-inner">
+	                            	<% for(var j=0; j<plans[i].options.length; j++) { %>
+		                                <label class="radio <%=plans[i].planTitle%>Radio">
+										  <input type="radio" name="<%=plans[i].planTitle%>options" id="<%=plans[i].planTitle%>Radios<%=i+1%>" value="<%=plans[i].planTitle%><%=i+1%>">
+										  <p><strong><%=plans[i].options[j].text%></strong></p>
+										  <% if (plans[i].options[j].isCorrect) { %>
+										  	<p class="planInfo text-success"><%=plans[i].options[j].feedback%></p>
+										  <%} else { %>
+										  	<p class="planInfo text-error"><%=plans[i].options[j].feedback%></p>
+										  <%}%> 
+										</label>
+									<% }%>		
+	                            </div>
+	                        </div>
+	                    </div>
+                    <% }%>
+                </div> <!-- /accordion -->
+			</div>
+			<div class="modal-footer">  
+				<button class="btn btn-success" id="submitButton" type="button" onclick="submit()" disabled>Submit</button>
+				<button onclick="location.href='<%=id%>/discussion'" id="nextButton" class="btn btn-success">Next</button>
+			</div>  
+		</div>
+
+
+   
+	    <script src="/assets/js/jquery.js"></script>
+		<script src="/assets/js/bootstrap.js"></script>
+
+	   	<script type="text/javascript">
+
+	   		var rx = false;
+	   		var dx = false;
+	   		var ed = false;
+	   		var follow = false;
+
+	    	$(window).load(function(){
+	    		$('#modal').modal({
+  					keyboard: false,
+  					backdrop: 'static'
+				});
+	        	$('#modal').modal('show');
+	    	});
+
+	    	$('.planInfo').hide();
+	    	$('#nextButton').hide();
+
+			$('.RXRadio').click(function() {
+				rx = true;
+				check();
+			});
+
+			$('.EDRadio').click(function() {
+				ed = true;
+				check();
+			});
+
+			$('.DXRadio').click(function() {
+				dx = true;
+				check();
+			});
+
+			$('.Follow-upRadio').click(function() {
+				follow = true;
+				check();
+			});
+
+			function check () {
+				if(dx && rx && ed  && follow) {
+					$('#submitButton').removeAttr('disabled');
+				}
+			}
+
+			function submit () {
+				$('#submitButton').hide();
+  				$('.planInfo').show();
+  				$('#nextButton').show();
+			}
+
+		</script>
+	</body>
+</html>

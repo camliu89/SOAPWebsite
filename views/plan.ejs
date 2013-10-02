@@ -7,6 +7,17 @@
 			<!-- Bootstrap -->
 			<link href="/assets/css/bootstrap.css" rel="stylesheet">
 			<link href="/assets/css/bootstrap-responsive.css" rel="stylesheet">
+
+			<style type="text/css">
+			a {
+				color: black;
+				font-weight:bold;
+			}
+
+			.modal-body {
+    			max-height: 800px;
+			}
+			</style>
 	</head>
 	<body>
 		<div id="modal" class="modal hide fade">  
@@ -16,11 +27,12 @@
 				<p class="muted">Case: <%=title%> </p>   
 			</div>  
 			<div class="modal-body">  
-				<div class="accordion" id="accordion1">   
+				   
 					<% for(var i=0; i<plans.length; i++) { %>
+					<div class="accordion" id="accordion<%=i%>">
 	                    <div class="accordion-group">
 	                        <div class="accordion-heading">
-	                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" href="#<%=plans[i].planTitle%>">
+	                            <a class="accordion-toggle" id="collapse<%=plans[i].planTitle%>" data-toggle="collapse" data-parent="#accordion<%=i%>" href="#<%=plans[i].planTitle%>">
 	                                <%=plans[i].planTitle%>
 	                            </a>
 	                        </div>
@@ -40,8 +52,9 @@
 	                            </div>
 	                        </div>
 	                    </div>
+	                     </div> <!-- /accordion -->
                     <% }%>
-                </div> <!-- /accordion -->
+               
 			</div>
 			<div class="modal-footer">  
 				<button class="btn btn-success" id="submitButton" type="button" onclick="submit()" disabled>Submit</button>
@@ -56,12 +69,7 @@
 
 	   	<script type="text/javascript">
 
-	   		var rx = false;
-	   		var dx = false;
-	   		var ed = false;
-	   		var follow = false;
-
-	    	$(window).load(function(){
+	   		$(window).load(function(){
 	    		$('#modal').modal({
   					keyboard: false,
   					backdrop: 'static'
@@ -71,6 +79,12 @@
 
 	    	$('.planInfo').hide();
 	    	$('#nextButton').hide();
+
+	   		//Check each click for each radio set to determine if all radio sets were clicked
+	   		var rx = false;
+	   		var dx = false;
+	   		var ed = false;
+	   		var follow = false;
 
 			$('.RXRadio').click(function() {
 				rx = true;
@@ -97,11 +111,17 @@
 					$('#submitButton').removeAttr('disabled');
 				}
 			}
-
+			//////////////////////////////////////////////////////////////////////////////////
+			
 			function submit () {
 				$('#submitButton').hide();
   				$('.planInfo').show();
   				$('#nextButton').show();
+  				$('#RX').collapse('show');
+  				$('#DX').collapse('show');
+  				$('#ED').collapse('show');
+  				$('#Follow-up').collapse('show');
+  				$("input:radio").attr('disabled',true);
 			}
 
 		</script>

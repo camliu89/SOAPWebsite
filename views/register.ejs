@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+  
+  <head>
+    <title>Register</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+    <link rel="stylesheet" href="/assets/css/bootstrap.css">
+    <link rel="stylesheet" href="/assets/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="https://djyhxgczejc94.cloudfront.net/builds/3b63e2138001e7edecc448a4524f0ef1aa402601.css">
+    <script src="/assets/js/jquery.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+  </head>
+  
+  <body>
+    <div class="container">
+      <h2 class="text-center" style="color:#024731"><img src="/images/soap/AP_icon.png"  height="80" width="80">&#160;Advanced Practice</h2>
+
+      <% if (hasError) { %>
+        <div class="alert alert-error">
+        <p class="text-center"><strong>ERROR! </strong> <%=error%></p> 
+        </div>
+      <%} %>
+      
+
+      <div class="well">
+        <form action="/submitRegister" method="POST" class="form-vertical" id="form">
+          <input class="input-large" placeholder="Email" name="email" type="email" required>
+          <br>
+          <input class="input-large" name="first" placeholder="First Name" type="text" required>
+          <br>
+          <input class="input-large" name="last" placeholder="Last Name" type="text" required>
+          <br>
+          <input class="input-large" name="password" placeholder="Password" type="password" required>
+          <br>
+          <button type="submit" class="btn btn-success btn-small">Register</button>
+        </form>
+      </div>
+    </div>
+  </body>
+
+</html>

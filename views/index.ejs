@@ -2,7 +2,7 @@
 <html>
   
   <head>
-    <title>login</title>
+    <title>Welcome to Advanced Practice</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
     <link rel="stylesheet" href="/assets/css/bootstrap.css">
@@ -11,10 +11,17 @@
     <script src="/assets/js/jquery.js"></script>
     <script src="/assets/js/bootstrap.min.js"></script>
   </head>
-  
+
   <body>
     <div class="container">
       <h2 class="text-center" style="color:#024731"><img src="/images/soap/AP_icon.png"  height="80" width="80">&#160;Advanced Practice</h2>
+
+      <% if (loginCorrect) { %>
+        <div class="alert alert-success">
+        <p class="text-center"><strong>Congratulations!</strong> <%=message%></p> 
+        </div>
+      <% } %>
+
       <div class="well">
         <form action="/login" method="POST" class="form-vertical" id="form">
           <input class="input-large" placeholder="Email" name="email" required=""
@@ -24,7 +31,7 @@
           <br>
           <button type="submit" class="btn btn-success btn-small">Login</button>
           <span>|</span>
-          <a class="register" href="" style="color:#024731">Register</a> 
+          <a class="register" href="/register" style="color:#024731">New Account</a> 
         </form>
       </div>
     </div>

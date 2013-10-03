@@ -3,7 +3,9 @@
   [
     { "path": "/", "callback": "application#index" },
     { "path": "/error", "callback": "application#error"},
+    { "path": "/register", "callback": "application#register" },
     { "path": "/login", "method":"post", "callback": "access#login" },
+    { "path": "/submitRegister", "method":"post", "callback": "access#submitRegister" },
     { "path": "/logout", "callback": "access#logout"},
     { "path": "/adults", "callback": "data#adults" },
     { "path": "/pediatrics", "callback": "data#pediatrics" },

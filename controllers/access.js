@@ -15,7 +15,6 @@ function login(req,res){
             req.session.firstName = data.users[0].first_name;
             req.session.fullname=data.users[0].first_name + ' ' +
             data.users[0].last_name;
-            console.log(data);
             // '/adults' is the active one after login
 		    res.redirect("/adults");
     	}
@@ -29,5 +28,30 @@ function logout (req, res) {
      ACS.Users.logout(function(data) {
         delete req.session.session_id;
         res.redirect('/');
+    });
+}
+
+function submitRegister (req, res) {
+
+    ACS.Users.create ({
+        email: req.body.email,
+        first_name: req.body.first,
+        last_name: req.body.last,
+        password: req.body.password,
+        password_confirmation: req.body.password
+    },
+    function (data) {
+        if(data.success) {
+            res.render("index", {
+                loginCorrect: true,
+                message: "Now, please check your email to activate your account."
+            });
+        }
+        else {
+            res.render("register", {
+                hasError: true,
+                error: data.message
+            });
+        }
     });
 }

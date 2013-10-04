@@ -1,6 +1,6 @@
 var ACS = require('acs').ACS;
-var ACS_KEY = 'azmQYfjKPdSdVNqjfgen5FuKknvoRPGA';
-var ACS_SECRET = 'HjwGkNbUgFjadLPLj7sUf13FG3qIYcsI';
+var ACS_KEY = 'YOUR ACS KEY';
+var ACS_SECRET = 'YOUR ACS SECRET KEY';
 
 // initialize app
 function start(app, express) {

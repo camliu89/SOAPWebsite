@@ -7,6 +7,8 @@
     { "path": "/login", "method":"post", "callback": "access#login" },
     { "path": "/submitRegister", "method":"post", "callback": "access#submitRegister" },
     { "path": "/logout", "callback": "access#logout"},
+    { "path": "/checkpoint", "callback": "application#checkPoint"},
+    { "path": "/submitCheck", "method":"post", "callback": "application#submitCheck"},
     { "path": "/adults", "callback": "data#adults" },
     { "path": "/pediatrics", "callback": "data#pediatrics" },
     { "path": "/geriatrics", "callback": "data#geriatrics" },  
@@ -26,10 +28,12 @@
     { "path": "/women/:id/subobj", "callback": "data#getData" },
     { "path": "/women/:id/discussion", "callback": "data#discussion" }, 
     { "path": "/women/:id/assestment", "callback": "data#assestment" },
-    { "path": "/women/:id/plan", "callback": "data#plan" }     
+    { "path": "/women/:id/plan", "callback": "data#plan" }    
   ],
   "filters":
   [
+    { "path": "/checkpoint", "callback": "session_filter#validateSession"},
+    { "path": "/submitCheck", "callback": "session_filter#validateSession"},
   	{ "path": "/adults", "callback": "session_filter#validateSession" },
     { "path": "/pediatrics", "callback": "session_filter#validateSession" },
     { "path": "/women", "callback": "session_filter#validateSession" },

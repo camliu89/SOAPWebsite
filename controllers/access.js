@@ -1,4 +1,4 @@
-var ACS = require('acs').ACS;
+var ACS = require('acs-node');
 
 function login(req,res){
 
@@ -15,13 +15,15 @@ function login(req,res){
             req.session.firstName = data.users[0].first_name;
             req.session.fullname=data.users[0].first_name + ' ' +
             data.users[0].last_name;
+            req.session.role=data.users[0].role;
+            req.session.casesDone = data.users[0].custom_fields.casesDone;
             // '/adults' is the active one after login
 		    res.redirect("/adults");
     	}
         else {
     		res.redirect("/error");
     	}
-    });
+    }, req, res);
 }
 
 function logout (req, res) {
@@ -38,7 +40,10 @@ function submitRegister (req, res) {
         first_name: req.body.first,
         last_name: req.body.last,
         password: req.body.password,
-        password_confirmation: req.body.password
+        password_confirmation: req.body.password,
+        custom_fields: {
+            casesDone: []
+        }
     },
     function (data) {
         if(data.success) {
@@ -54,4 +59,8 @@ function submitRegister (req, res) {
             });
         }
     });
+}
+
+function updateUserCases (req, res) {
+
 }

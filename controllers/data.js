@@ -1,4 +1,4 @@
-var ACS = require('acs').ACS;
+var ACS = require('acs-node');
 
 function adults (req, res) {
 
@@ -13,11 +13,25 @@ function adults (req, res) {
     }, 
     function (data) {
         if (data.success) {
+
+            var m = require('/modules/utilities');
+            //console.log(m.has(req.session.casesDone, data.soap[0].id));
+
+            for (var i = 0; i < data.soap.length; i++) {
+                if (m.has(req.session.casesDone, data.soap[i].id)) {
+                    data.soap[i].done = true;
+                }
+                else {
+                    data.soap[i].done = false;
+                }
+            }
+            
             req.session.caseRoot = "/adults";
             res.render('home', {
                 id: 'adults',
                 name: req.session.firstName,
-                cases: data.soap 
+                role: req.session.role,
+                cases: data.soap
             });
             
         } else {
@@ -39,11 +53,25 @@ function pediatrics (req, res) {
     }, 
     function (data) {
         if (data.success) {
+
+            var m = require('/modules/utilities');
+            //console.log(m.has(req.session.casesDone, data.soap[0].id));
+
+            for (var i = 0; i < data.soap.length; i++) {
+                if (m.has(req.session.casesDone, data.soap[i].id)) {
+                    data.soap[i].done = true;
+                }
+                else {
+                    data.soap[i].done = false;
+                }
+            }
+
             req.session.caseRoot = "/pediatrics";
             res.render('home', {
                 id: 'pediatrics',
                 name: req.session.firstName,
-                cases: data.soap 
+                role: req.session.role,
+                cases: data.soap
             });
             
         } else {
@@ -64,11 +92,25 @@ function geriatrics (req, res) {
     }, 
     function (data) {
         if (data.success) {
+
+            var m = require('/modules/utilities');
+            //console.log(m.has(req.session.casesDone, data.soap[0].id));
+
+            for (var i = 0; i < data.soap.length; i++) {
+                if (m.has(req.session.casesDone, data.soap[i].id)) {
+                    data.soap[i].done = true;
+                }
+                else {
+                    data.soap[i].done = false;
+                }
+            }
+
             req.session.caseRoot = "/geriatrics";
             res.render('home', {
                 id: 'geriatrics',
                 name: req.session.firstName,
-                cases: data.soap 
+                role: req.session.role,
+                cases: data.soap
             });
             
         } else {
@@ -90,11 +132,27 @@ function women (req, res) {
     }, 
     function (data) {
         if (data.success) {
+
+            var m = require('/modules/utilities');
+            //console.log(m.has(req.session.casesDone, data.soap[0].id));
+
+            for (var i = 0; i < data.soap.length; i++) {
+                if (m.has(req.session.casesDone, data.soap[i].id)) {
+                    data.soap[i].done = true;
+                }
+                else {
+                    data.soap[i].done = false;
+                }
+            }
+
+            var m = require('/modules/utilities');
+            console.log(m.has(req.session.casesDone, data.soap[0].id));
             req.session.caseRoot = "/women";
             res.render('home', {
                 id: 'women',
                 name: req.session.firstName,
-                cases: data.soap 
+                role: req.session.role,
+                cases: data.soap
             });
             
         } else {
@@ -148,9 +206,54 @@ function plan (req, res) {
 }
 
 function discussion (req, res) {
+
+    var caseId = req.params.id;
+    var casesDone = req.session.casesDone;
+    //if no cases had been completed
+        if (casesDone == 0) {
+            //Adding the id case to the user cloud data
+            casesDone.push(caseId);   
+            //var cloud = require('/ui/common/CloudData');
+            updateCasesDone(req, res, casesDone);
+        }
+        //Check if case is done previously
+        //if not, add the case id to the user cloud data
+        else {
+            for (var i = 0; i < casesDone.length; i++) {
+                var caseDone = casesDone[i];
+                if(caseDone === caseId) {
+                    break;
+                }
+                if(i == casesDone.length - 1) {
+                    //Adding the id case to the user cloud data
+                    casesDone.push(caseId);   
+                    //var cloud = require('/ui/common/CloudData');
+                    updateCasesDone (req, res, casesDone)
+                }
+            }
+        }
     res.render('discussion', {
         back: req.session.caseRoot,
         title: req.session.holdData[0].testcase,
         discussion: req.session.holdData[0].Discussion[0].Summary
     });
+}
+
+//Update cases done to the user profile
+function updateCasesDone (req, res, cases) {
+
+    ACS.Users.update({
+        custom_fields: {
+            casesDone: cases
+        }
+    }, function(data) {
+
+        if(data.success) {
+            console.log ('Cases updated');
+        } else {
+            console.log("Update user error: " + data.meta.message);
+
+        }
+    }, req, res);
+    
 }

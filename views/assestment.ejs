@@ -11,31 +11,39 @@
 			<!-- Github: https://github.com/jschr/bootstrap-modal -->
 			<link href="/assets/css/bootstrap-modal.css" rel="stylesheet">
 	</head>
-	<body>
-		<div id="modal" class="modal hide fade">  
-			<div class="modal-header">  
-				<a href="<%=back%>" class="close">×</a> 
-				<h3>Assestment</h3>
-				<p class="muted">Case: <%=title%> </p>   
-			</div>  
-			<div class="modal-body">  
-				<% for(var i=0; i<assestments.length; i++) { %>
-					<div class="row-fluid">
-						<label class="radio assestRadio">
-						  <input type="radio" name="optionsRadios" id="optionsRadios<%=i+1%>" value="option<%=i+1%>">
-						  <p><strong><%=assestments[i].assestTitle%></strong></p>
-						  <% if (assestments[i].isCorrect) { %>
-						  	<p class="assestInfo text-success"><%=assestments[i].assestText%></p>
-						  <%} else { %>
-						  	<p class="assestInfo text-error"><%=assestments[i].assestText%></p>
-						  	<%}%> 
-						</label>		
+
+	<body style="background-color:#024731">
+		<div id="modal" class="modal fade">
+		<div class="modal-dialog">
+      			<div class="modal-content">  
+
+					<div class="modal-header">  
+						<a href="<%=back%>" class="close">×</a> 
+						<h3>Assestment</h3>
+						<p class="text-muted">Case: <%=title%> </p>   
+					</div>  
+
+					<div class="modal-body">  
+						<% for(var i=0; i<assestments.length; i++) { %>
+							<div class="row-fluid">
+								<label class="radio assestRadio">
+								  <input type="radio" name="optionsRadios" id="optionsRadios<%=i+1%>" value="option<%=i+1%>">
+								  <p><strong><%=assestments[i].assestTitle%></strong></p>
+								  <% if (assestments[i].isCorrect) { %>
+								  	<p class="assestInfo text-success"><%=assestments[i].assestText%></p>
+								  <%} else { %>
+								  	<p class="assestInfo text-danger"><%=assestments[i].assestText%></p>
+								  	<%}%> 
+								</label>		
+							</div>
+						<% } %>
 					</div>
-				<% } %>
-			</div>
-			<div class="modal-footer">  
-				<button class="btn btn-success" id="submitButton" type="button" onclick="submit()" disabled>Submit</button>
-				<button onclick="location.href='<%=id%>/plan'" id="nextButton" class="btn btn-success">Next</button>
+
+					<div class="modal-footer">  
+						<button class="btn btn-success" id="submitButton" type="button" onclick="submit()" disabled>Submit</button>
+						<button onclick="location.href='<%=id%>/plan'" id="nextButton" class="btn btn-success">Next</button>
+					</div>
+				</div>
 			</div>  
 		</div>
 

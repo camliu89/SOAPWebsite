@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Instructor Check Point</title>
+	
+	<!-- Bootstrap -->
+	<link href="/assets/css/bootstrap.css" rel="stylesheet">
+	<link href="/assets/css/bootstrap-responsive.css" rel="stylesheet">
+	<link href="/css/home.css" rel="stylesheet">
+	<link href='http://fonts.googleapis.com/css?family=News+Cycle|Istok+Web:400,700' rel='stylesheet' type='text/css'>
+
+	<style type="text/css">
+		img.no-resize {
+			height: 80px;
+			width: 80px
+		}
+		.thumbnail {
+			height: 120px;
+		}
+
+	</style>
+
+</head>
+<body>
+
+	<div class="navbar-wrapper">
+	<!-- Navbar -->
+	<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+	    <div class="navbar-header">
+	    	<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+          	</button>
+	      <a class="navbar-brand">Welcome, <%= name %></a>
+	    </div>
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-right">
+          	<li class="dropdown">
+	        	<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-cog"></span><b class="caret"></b></a>
+	        	<ul class="dropdown-menu">
+	        		<% if (role == 'Instructor') { %>
+	        		 	<li><a href="/checkpoint"><span class="glyphicon glyphicon-ok-sign"></span> | Check Students Progress</a></li>
+	        		<% } %> 
+	        		<li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> | Log out</a></li>
+	        	</ul>
+	      	</li>
+        </ul>
+      </div>	    
+	</nav>
+
+	</div>
+	
+	<div class="container" style="padding-top:100px">
+
+		<div class="row">
+			  <div class="col-lg-12">
+			  	<form action="/submitCheck" method="POST" role="form">
+			  		<div class="input-group">
+			      <input type="text" class="form-control" name="email" placeholder="Enter the student's Email" required>
+			      <span class="input-group-btn">
+			        <button class="btn btn-default" type="submit">Go!</button>
+			      </span>
+			    </div><!-- /input-group -->
+			  	</form>
+			    
+			  </div><!-- /.col-lg-12 -->
+			</div><!-- /.row -->
+	
+	<br>
+
+	<% if (data) { %>
+        <div class="row">
+        	<div class="col-log-12">
+        		<h1 class="text-center"><strong><%=data%></strong> </h1> 
+        	</div>	 
+        </div> <!-- row -->
+     	
+     	<br>
+
+      	<div class="row" id="casesDone"></div> <!-- row -->
+
+      	<hr>
+
+      	<div class="row" id="casesNotDone"></div> <!-- row -->
+  	<% } %>
+
+
+	</div> <!-- container -->
+
+	<!--Javascript-->
+    <script src="/assets/js/jquery.js"></script>
+	<script src="/assets/js/bootstrap.js"></script>
+
+	<!-- jquery -->
+	<script>
+
+		<% 
+			for(var i=1; i<cases.length; i++) { 
+
+					if (cases[i].done) { %>
+
+					$( '#casesDone' ).append ('<div class="col-sm-6 col-md-4"><div class="thumbnail alert-success"><div class="caption"><h4> <%=cases[i].testcase %></h4><small style="color:black; font-family:"News Cycle", sans-serif; font-weight: 400"><em>By <%=cases[i].author %> </em></small></div></div></div>');
+	  				
+				<% } 
+					else { %> 
+
+						$( '#casesNotDone' ).append ('<div class="col-sm-6 col-md-4"><div class="thumbnail"><div class="caption"><h4> <%=cases[i].testcase %></h4><small style="color:black; font-family:"News Cycle", sans-serif; font-weight: 400"><em>By <%=cases[i].author %> </em></small></div></div></div>');
+
+				<% }
+			} %>
+	</script>
+
+</body>
+</html>

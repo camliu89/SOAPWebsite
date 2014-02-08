@@ -8,6 +8,7 @@
     { "path": "/submitRegister", "method":"post", "callback": "access#submitRegister" },
     { "path": "/logout", "callback": "access#logout"},
     { "path": "/checkpoint", "callback": "application#checkPoint"},
+    { "path": "/upload", "callback": "application#uploadCase"},
     { "path": "/submitCheck", "method":"post", "callback": "application#submitCheck"},
     { "path": "/adults", "callback": "data#adults" },
     { "path": "/pediatrics", "callback": "data#pediatrics" },
@@ -33,6 +34,7 @@
   "filters":
   [
     { "path": "/checkpoint", "callback": "session_filter#validateSession"},
+    { "path": "/upload", "callback": "session_filter#validateSession"},
     { "path": "/submitCheck", "callback": "session_filter#validateSession"},
   	{ "path": "/adults", "callback": "session_filter#validateSession" },
     { "path": "/pediatrics", "callback": "session_filter#validateSession" },

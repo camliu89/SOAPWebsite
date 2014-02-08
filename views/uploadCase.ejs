@@ -1,0 +1,426 @@
+	<!DOCTYPE html>
+	<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>Upload Case Study</title>
+		<!-- Bootstrap -->
+		<link href="/assets/css/bootstrap.css" rel="stylesheet">
+		<link href="/assets/css/bootstrap-responsive.css" rel="stylesheet">
+
+		<script type="text/javascript">
+	
+		var assestcount = 2;
+		var RXcount = 2;
+		var EDcount = 2;
+		var DXcount = 2;
+		var FollowUpcount = 2;
+	
+		function assestAdd() {		
+			var assestcontainer = document.getElementById('Assestment');
+			var assestchoice = document.createElement('div');
+			 
+			assestchoice.innerHTML = '<br><label> Choice ' + assestcount + '</label><textarea class="form-control" name="assestTitle" cols="50" required></textarea><br><label>Reason ' + assestcount + '</label><textarea class="form-control" name="assestText" cols="50" rows="10" required></textarea>';
+			
+			assestcontainer.appendChild(assestchoice);
+
+			addSelection("selectAssest", assestcount, "Assessment " + assestcount);
+
+			assestcount++;
+		}
+
+		
+		function RXAdd() {		
+			var RXcontainer = document.getElementById('RX');
+			var RXchoice = document.createElement('div');
+			
+			RXchoice.innerHTML = '<br><label>Choice ' + RXcount + '</label><textarea class="form-control" name="RXtext" cols="50" required></textarea><br><label>Reason ' + RXcount + '</label><textarea class="form-control" name="RXfeedback" cols="50" rows="10" required></textarea>';
+			
+			
+			RXcontainer.appendChild(RXchoice);
+
+			addSelection("selectRX", RXcount, "RX " + RXcount);
+
+			RXcount++;
+
+		}
+			
+		function EDAdd() {		
+			var EDcontainer = document.getElementById('ED');
+			var EDchoice = document.createElement('div');
+			
+			EDchoice.innerHTML = '<br><label>Choice ' + EDcount + '</label><textarea class="form-control" name="EDtext" cols="50" required></textarea><br><label>Reason ' + EDcount + '</label><textarea class="form-control" name="EDfeedback" cols="50" rows="10" required></textarea>';
+			
+			EDcontainer.appendChild(EDchoice);
+
+			addSelection("selectED", EDcount, "ED " + EDcount);
+
+			EDcount++;
+		}
+			
+		function DXAdd() {		
+			var DXcontainer = document.getElementById('DX');
+			var DXchoice = document.createElement('div');
+			
+			DXchoice.innerHTML = '<br><label>Choice ' + DXcount + '</label><textarea class="form-control" name="DXtext" cols="50" required></textarea><br><label>Reason ' + DXcount + '</label><textarea class="form-control" name="DXfeedback" cols="50" rows="10" required></textarea>';
+			
+			DXcontainer.appendChild(DXchoice);
+
+			addSelection("selectDX", DXcount, "DX " + DXcount);
+
+			DXcount++;
+		}
+			
+		function FollowUpAdd() {		
+			var FollowUpcontainer = document.getElementById('Follow up');
+			var FollowUpchoice = document.createElement('div');
+			
+			FollowUpchoice.innerHTML = '<br><label>Choice ' + FollowUpcount + '</label><textarea class="form-control" name="FollowUptext" cols="50" required></textarea><br><label>Reason ' + FollowUpcount + '</label><textarea class="form-control" name="FollowUpfeedback" cols="50" rows="10" required></textarea>';
+			
+			FollowUpcontainer.appendChild(FollowUpchoice);
+
+			addSelection("selectFollowUp", FollowUpcount, "Follow-up " + FollowUpcount);
+
+			FollowUpcount++;
+		}
+
+		function addSelection (selectId, selectValue, selectText) {
+			var sel = document.getElementById(selectId);
+			var newSel = document.createElement('option');
+			newSel.text = selectText;
+			newSel.value = selectValue;
+			sel.add(newSel, null);
+		}
+
+		function assestmentObject(title, text, isCorrect) {
+			 this.assestTitle = title;
+			 this.assestText = text;
+			 this.isCorrect = isCorrect;
+		}
+		
+		function planOptions (text, feedback, isCorrect) {
+			this.text = text;
+			this.feedback = feedback;
+			this.isCorrect = isCorrect;
+		}
+		
+		function planObject (planTitle, options) {
+			this.planTitle = planTitle;
+			this.options = options;
+		}
+		
+		function DiscussionObject(Summary) {
+			 this.Summary = Summary;
+		}
+
+		function loginToCloud() {
+			var jqxhr = $.post( 
+		 	"https://api.cloud.appcelerator.com/v1/users/login.json?key=gPCcl88Y4DQqfF5jpScEfheuEkRBg3Fm",
+		 	{login:"midteam@hawaii.edu",password:"test"}, 
+		 	function() {
+
+			})
+			  .done(function(data) {
+			  	pushData(data.meta.session_id);
+			    //alert( data.meta.session_id );
+			  })
+			  .fail(function(data) {
+			  	alert("Fail authentication.");
+			    //alert( JSON.stringify(data) );
+			  })
+		}
+
+		function pushData(id) {
+			
+			var data = validateForm();
+			if(data) {
+				var request = new XMLHttpRequest();
+				var url = "https://api.cloud.appcelerator.com/v1/objects/soap/create.json?key=gPCcl88Y4DQqfF5jpScEfheuEkRBg3Fm&_session_id=" + id;
+				var parameters = "class_name=soap&fields=" + JSON.stringify(data);
+				request.open("POST", url, true);
+				request.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+				request.send(parameters);
+				request.onreadystatechange = function() {
+					if (request.readyState == 4) {
+						if (request.status == 200) {
+							alert("Data uploaded to server successfully.");
+						}
+						else {
+							alert("Fail uploding to server. Please contact IT.");
+							alert(request.responseText);
+						}
+					}
+				}
+			}
+  		}
+
+		function setOptionsData (title, text, select, object) {
+			var testArray = new Array ();
+
+			var test = document.getElementsByName(title);
+			var test1 = document.getElementsByName(text);
+			var test2 = parseInt(document.getElementById(select).value) - 1;
+			
+
+			for (var i = 0; i < test.length ; i++) {
+				var title = test[i].value;
+				var text = test1[i].value;
+				if(i == test2) {
+					testArray.push(new object(title, text, true));
+				}
+				else{
+					testArray.push(new object(title, text, false));
+				}
+				
+			}
+
+			return testArray;
+		}
+		
+		function validateForm() {
+			var soap = 
+				{
+				testcase: "",
+				rootCase: "",
+				Subjective: "",
+				Objective: "",
+				Assestment: "",
+				Plan: "",
+				Discussion: 
+					[{
+					Summary: ""
+					}],
+				isOpened: false,
+				author: ""
+				};
+
+			soap.testcase = document.AdvancedPractice.CaseTitle.value;	
+			soap.rootCase = document.AdvancedPractice.rootCase.value;
+			soap.author = 	document.AdvancedPractice.myName.value;
+			
+			soap.Subjective = document.AdvancedPractice.Subjective.value;	
+			soap.Objective = document.AdvancedPractice.Objective.value;
+			
+			//ASSESTMENT
+			soap.Assestment = setOptionsData ("assestTitle", "assestText", "selectAssest", assestmentObject);
+			
+			
+			//PLAN
+			var planArray = new Array ();
+			
+			//RX
+			var RXoptions = setOptionsData ("RXtext", "RXfeedback", "selectRX", planOptions);
+			
+			planArray.push(new planObject("RX", RXoptions));
+
+			//DX
+			var DXoptions = setOptionsData ("DXtext", "DXfeedback", "selectDX", planOptions);
+			
+			planArray.push(new planObject("DX", DXoptions));
+			
+			//ED
+			var EDoptions = setOptionsData ("EDtext", "EDfeedback", "selectED", planOptions);
+			
+			planArray.push(new planObject("ED", EDoptions));
+
+			//Follow-Up
+			var FollowUpoptions = setOptionsData ("FollowUptext", "FollowUpfeedback", "selectFollowUp", planOptions);
+			
+			planArray.push(new planObject("Follow-up", FollowUpoptions));
+
+			//Added all together
+			soap.Plan = planArray;
+
+			
+			//DISCUSSION
+			var DiscussionArray = new Array ();
+
+			var DiscussionSummary = document.getElementsByName("DiscussionSummary");
+		
+			for (var i = 0; i < DiscussionSummary.length ; i++) {
+				var Summary = DiscussionSummary[i].value;
+				DiscussionArray.push(new DiscussionObject(Summary));
+			}
+			
+			soap.Discussion = DiscussionArray;
+
+
+			alert (JSON.stringify(soap));		
+		}		
+	</script>
+
+	</head>
+	<body>
+
+		<div class="navbar-wrapper">
+			<!-- Navbar -->
+			<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+			      <button type="button" class="btn btn-default navbar-btn" style="margin-left:10px" onclick="location.href='/adults'"><span class="glyphicon glyphicon-arrow-left"></span></button>
+			    </div> 
+			</nav>
+		</div>
+		
+		<div class="container" style="padding-top:100px">
+
+			<form class="form-horizontal" name="AdvancedPractice" onsubmit="validateForm(); return false;">
+
+				<fieldset>
+					<legend name="Information"><b>Information</b></legend>  
+						<div class="form-group">
+							<input class="form-control" placeholder="Name" id="myName" name="YourName" type="text" required><br>
+							<input class="form-control" id="FacultyName" type="text" placeholder="Faculty Name" required><br>
+							<input class="form-control" id="CaseTitle" type="text" placeholder="Case Title" required><br>
+							
+							<label> Category </label>
+							<select class="form-control" id="rootCase">
+								<option value="Pediatrics">Pediatrics</option>
+								<option value="Women">Women</option>
+								<option value="Adults">Adults</option>
+								<option value="Geriatrics">Geriatrics</option>
+							</select>
+						</div> 
+				</fieldset>
+
+				<br>
+
+				<fieldset>
+					<legend name="SubObj"><b>Subjective &amp; Objective</b></legend>
+					<div class="form-group">
+						<label> Subjective </label>
+						<textarea class="form-control" name="Subjective" cols="50" rows="10" required></textarea>
+					</div>
+					<div class="form-group">
+						<label> Objective </label>
+						<textarea class="form-control" name="Objective" cols="50" rows="10" required></textarea>
+					</div>
+				</fieldset>
+
+				<br>
+
+				<fieldset>
+					<legend><b>Assessment</b></legend>
+					<div class="form-group">
+				    	<button class="btn btn-default" type="button" onclick="assestAdd()">Add</button>
+					</div>
+				    	<div class="form-group" id="Assestment">
+							<label> Choice 1 </label>
+				            	<textarea class="form-control" name="assestTitle" cols="50" required></textarea> <br>
+				            <label> Reason 1 </label>
+				            	<textarea class="form-control" name="assestText" cols="50" rows="10" required></textarea>
+			            </div>
+			            <div class="form-group">
+				            <label> Choose the correct answer </label>
+							<select class="form-control" id="selectAssest">
+									<option value="1">Assessment 1</option>
+							</select>
+						</div>
+				</fieldset>
+
+				<br>
+
+				<fieldset>
+					<legend name="Plan"><b>Plan</b></legend>
+				  		<br>
+
+						<fieldset>
+							<legend><b>RX</b></legend>
+							<div class="form-group">
+				            	<button class="btn btn-default" type="button" onclick="RXAdd()">Add</button>
+				        	</div>
+			            	<div class="form-group" name="RX" id="RX">
+								<label>Choice 1</label>
+									<textarea class="form-control" name="RXtext" cols="50" required></textarea><br>
+			            		<label>Reason 1 </label>
+			            			<textarea class="form-control" name="RXfeedback" cols="50" rows="10" required></textarea>
+			            	</div>
+			            	<div class="form-group">
+		            			<label> Choose the correct answer </label>
+								<select class="form-control" id="selectRX">
+										<option value="1">RX 1</option>
+								</select>	 
+							</div> 
+						</fieldset>
+
+						<br>
+
+						<fieldset>
+							<legend><b>ED</b></legend>
+							<div class="form-group">
+				            	<button type="button" onclick="EDAdd()">Add</button>
+				            </div>
+				            	<div class="form-group" id="ED">
+									<label>Choice 1</label>
+				            			<textarea class="form-control" name="EDtext" cols="50" required></textarea> <br>
+				            		<label>Reason 1</label>
+				            			<textarea class="form-control" name="EDfeedback" cols="50" rows="10" required></textarea> 
+								</div>
+							<div class="form-group">
+								<label>Choose the correct answer </label>
+								<select class="form-control" id="selectED">
+										<option value="1">ED 1</option>
+								</select>
+							</div> 	
+						</fieldset>
+
+						<br>
+
+						<fieldset>
+							<legend><b>DX</b></legend>
+							<div class="form-group">
+				            	<button type="button" onclick="DXAdd()">Add</button>
+				            </div>
+				            	<div class="form-group" id="DX">
+									<label>Choice 1</label>
+				            			<textarea class="form-control" name="DXtext" cols="50" required></textarea><br>
+				            		<label>Reason 1</label>
+				            			<textarea class="form-control" name="DXfeedback" cols="50" rows="10" required></textarea> 
+								</div>
+							<div class="form-group">
+								<label>Choose the correct answer </label>
+								<select class="form-control" id="selectDX">
+										<option value="1">DX 1</option>
+								</select>
+							</div>
+						</fieldset>
+
+						<br>
+
+						<fieldset>
+							<legend><b>Follow up</b></legend>
+							<div class="form-group">
+				            	<button type="button" onclick="FollowUpAdd()">Add</button>
+				            </div>
+				            	<div class="form-group" id="Follow up">
+									<label>Choice 1</label>
+				            			<br><textarea class="form-control" name="FollowUptext" cols="50" required></textarea><br>
+				            		<label>Reason 1</label>
+				            			<textarea class="form-control" name="FollowUpfeedback" cols="50" rows="10" required></textarea> 
+								</div>
+								<div class="form-group">
+									<label>Choose the correct answer </label>
+									<select class="form-control" id="selectFollowUp">
+										<option value="1">Follow-Up 1</option>
+									</select>
+								</div>
+						</fieldset>
+				</fieldset>
+
+				<br>
+
+				<fieldset>
+					<legend><b>Discussion</b></legend>
+				   		<div class="form-group">
+				   			<label>Summary</label>
+							<textarea class="form-control" name="DiscussionSummary" cols="50" rows="10" required></textarea>
+						</div>
+				</fieldset>
+
+				<button type="submit" class="btn btn-lg btn-info btn-block"> Upload Case </button>
+			</form>
+		</div>
+		<br>
+		<!--Javascript-->
+        <script src="/assets/js/jquery.js"></script>
+		<script src="/assets/js/bootstrap.js"></script>
+	</body>
+	</html>

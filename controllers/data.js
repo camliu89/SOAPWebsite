@@ -146,7 +146,6 @@ function women (req, res) {
             }
 
             var m = require('/modules/utilities');
-            console.log(m.has(req.session.casesDone, data.soap[0].id));
             req.session.caseRoot = "/women";
             res.render('home', {
                 id: 'women',

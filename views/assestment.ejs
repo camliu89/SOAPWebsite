@@ -28,10 +28,11 @@
 							<div class="row-fluid">
 								<label class="radio assestRadio">
 								  <input type="radio" name="optionsRadios" id="optionsRadios<%=i+1%>" value="option<%=i+1%>">
-								  <p><strong><%=assestments[i].assestTitle%></strong></p>
 								  <% if (assestments[i].isCorrect) { %>
+								  	<p><img src="/images/correct.png"><strong><%=assestments[i].assestTitle%></strong></p>
 								  	<p class="assestInfo text-success"><%=assestments[i].assestText%></p>
 								  <%} else { %>
+								  	<p><img src="/images/incorrect.png"><strong><%=assestments[i].assestTitle%></strong></p>
 								  	<p class="assestInfo text-danger"><%=assestments[i].assestText%></p>
 								  	<%}%> 
 								</label>		
@@ -67,6 +68,7 @@
 
 	    	$('.assestInfo').hide();
 	    	$('#nextButton').hide();
+	    	$('input:radio').next().find('img').hide();
 
 			$('.assestRadio').click(function() {
 				$('#submitButton').removeAttr('disabled');
@@ -77,6 +79,14 @@
   				$('.assestInfo').show();
   				$('#nextButton').show();
   				$("input:radio").attr('disabled',true);
+
+  				var styles = {
+  					opacity: "0"
+  				}
+
+  				$("input[type=radio]:checked").css(styles);
+  				$("input[type=radio]:checked").next().find('img').show();
+  				$("input[type=radio]:checked").next().find('strong').css("padding-left", "10px");
 			}
 
 		</script>

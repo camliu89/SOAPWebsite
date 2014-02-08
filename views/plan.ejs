@@ -48,10 +48,11 @@
 			                            	<% for(var j=0; j<plans[i].options.length; j++) { %>
 				                                <label class="radio <%=plans[i].planTitle%>Radio">
 												  <input type="radio" name="<%=plans[i].planTitle%>options" id="<%=plans[i].planTitle%>Radios<%=i+1%>" value="<%=plans[i].planTitle%><%=i+1%>">
-												  <p><strong><%=plans[i].options[j].text%></strong></p>
 												  <% if (plans[i].options[j].isCorrect) { %>
+												  	<p><img src="/images/correct.png"><strong><%=plans[i].options[j].text%></strong></p>
 												  	<p class="planInfo text-success"><%=plans[i].options[j].feedback%></p>
 												  <%} else { %>
+												  	<p><img src="/images/incorrect.png"><strong><%=plans[i].options[j].text%></strong></p>
 												  	<p class="planInfo text-danger"><%=plans[i].options[j].feedback%></p>
 												  <%}%> 
 												</label>
@@ -93,6 +94,7 @@
 
 	    	$('.planInfo').hide();
 	    	$('#nextButton').hide();
+	    	$('input:radio').next().find('img').hide();
 
 	   		//Check each click for each radio set to determine if all radio sets were clicked
 	   		var rx = false;
@@ -136,6 +138,14 @@
   				$('#ED').collapse('show');
   				$('#Follow-up').collapse('show');
   				$("input:radio").attr('disabled',true);
+
+  				var styles = {
+  					opacity: "0"
+  				}
+
+  				$("input[type=radio]:checked").css(styles);
+  				$("input[type=radio]:checked").next().find('img').show();
+  				$("input[type=radio]:checked").next().find('strong').css("padding-left", "10px");
 			}
 
 		</script>

@@ -24,7 +24,20 @@ function register (req, res) {
   });
 }
 
+function uploadCase (req, res) {
+ if (req.session.role == 'Instructor') {
+
+    res.render ('uploadCase');
+  }
+  else {
+    res.send (403, 'Not Authorized');
+  }    
+}
+
+
 function checkPoint (req, res) {
+
+  if (req.session.role == 'Instructor') {
 
     res.render ('checkpoint', {
       data: null,
@@ -32,13 +45,19 @@ function checkPoint (req, res) {
       name: req.session.firstName,
       role: req.session.role
     });
-  
-  
+  }
+  else {
+    res.send (403, 'Not Authorized');
+  }    
 }
+
+
 
 function submitCheck (req, res) {
 
-  ACS.Users.query({
+  if (req.session.role == 'Instructor') {
+
+    ACS.Users.query({
        where: {
         email: req.body.email
       }
@@ -94,4 +113,9 @@ function submitCheck (req, res) {
         console.log(userData.error);
       }
     }, req, res);
+  }
+  else {
+    res.send (403, 'Not Authorized');
+  }
+  
 }
